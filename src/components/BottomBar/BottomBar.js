@@ -10,6 +10,7 @@ import SkipPreviousIcon from '@material-ui/icons/SkipPrevious';
 import SkipNextIcon from '@material-ui/icons/SkipNext';
 import SaveIcon from '@material-ui/icons/Save';
 import GetAppIcon from '@material-ui/icons/GetApp';
+import PlayCircleFilledIcon from '@material-ui/icons/PlayCircleFilled';
 import { StoreContext } from "../../context/StoreContext";
 import Player from "../AudioPlayer";
 const path = ``
@@ -50,11 +51,11 @@ const useStyles = makeStyles(theme => ({
     },
     fab: {
         zIndex: 1,
-        top: -30,
+        top: -40,
         left: 0,
         right: 0,
         margin: theme.spacing(2),
-        marginLeft: 10
+        marginLeft: -7
     },
     player: {
         display: "block",
@@ -66,12 +67,20 @@ const useStyles = makeStyles(theme => ({
 
 function BottomBar() {
     const classes = useStyles();
-    const { isOpen, record, blobURL, onselect } = useContext(StoreContext)
+    const [show, setShow] = useState(false);
+    const { isOpen, record, blob, onselect } = useContext(StoreContext)
     const { selectNext } = useContext(StoreContext)
     const { selectPrev } = useContext(StoreContext)
-    const { startRecording, stopRecording, saveURL } = useContext(StoreContext)
+    const { startRecording, stopRecording, getDB, recVerse } = useContext(StoreContext)
 
     useEffect(() => {
+         if(recVerse.find((item) => item === onselect)) { 
+             setShow(true);
+         }
+         else {
+            setShow(false);
+         }
+        console.log('onselect', onselect,'show',show)
         var timerID = setInterval(() => stopRecording(), 60000);
         return function cleanup() {
             clearInterval(timerID);
@@ -98,17 +107,21 @@ function BottomBar() {
                                 <Fab color="primary" aria-label="edit" className={classes.fab} onClick={selectNext}>
                                     <SkipNextIcon />
                                 </Fab>
-                                <Fab aria-label="delete" className={classes.fab} onClick={saveURL}>
-                                    <SaveIcon />
-                                </Fab>
-                                <a className="download" href={blobURL} download="verse.webm">
+                                 { show && (
+                                    <>
+                                    <a className="download" href={blob.blobURL} download="verse.webm">
                                     <Fab aria-label="download" className={classes.fab}>
                                         <GetAppIcon />
                                     </Fab>
                                 </a>
+                                <Fab aria-label="download" className={classes.fab} onClick={getDB}>
+                                    <PlayCircleFilledIcon />
+                                </Fab>
                                 <span className={classes.player}>
                                     <Player />
                                 </span>
+                                </>
+                                )}
                             </Toolbar>
                         </AppBar>
                     </Slide>
