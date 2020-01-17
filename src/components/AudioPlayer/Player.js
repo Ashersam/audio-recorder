@@ -19,7 +19,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Player = () => {
-    const { isOpen, record, blob, onselect } = useContext(StoreContext)
+    const { blob, onselect } = useContext(StoreContext)
     return (
         <div>
             {(blob.verse === onselect) && (

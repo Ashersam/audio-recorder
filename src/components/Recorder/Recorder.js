@@ -7,6 +7,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Mic from '@material-ui/icons/Mic';
 import { ReactMicPlus } from 'react-mic-plus';
 import { StoreContext } from '../../context/StoreContext';
+import TexttoSpeech from '../TexttoSpeech/TexttoSpeech';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,11 +27,14 @@ const useStyles = makeStyles((theme) => ({
 		position: 'static',
 		float: 'right',
 		marginLeft: 462,
-    },
-    recorderToggle: {
-        backgroundColor: 'white',
-        color: 'red'
-    }
+	},
+	recorderToggle: {
+		backgroundColor: 'white',
+		color: 'red',
+	},
+	TexttoSpeech: {
+		marginLeft: 20,
+	}
 }));
 
 export default function Recorder() {
@@ -54,8 +58,14 @@ export default function Recorder() {
 						<MenuIcon />
 					</IconButton>
 					<Typography variant='h6' className={classes.title}>
-						Recorder
+						Verse Recorder
 					</Typography>
+					<span className={classes.TexttoSpeech} >
+						<Typography variant='h7' className={classes.title}>
+							Source Text
+						</Typography>
+						<TexttoSpeech />
+					</span>
 					<div>
 						<ReactMicPlus
 							className={classes.soundWave}
@@ -67,17 +77,19 @@ export default function Recorder() {
 							duration={5}
 						/>
 					</div>
-					<div>
-						<IconButton
-							className={classes.recorderToggle}
-							aria-label='account of current user'
-							aria-controls='menu-appbar'
-							aria-haspopup='true'
-							onClick={toggleOpen}
-							color='inherit'>
-							<Mic />
-						</IconButton>
-					</div>
+					<span>
+						<span>
+							<IconButton
+								className={classes.recorderToggle}
+								aria-label='account of current user'
+								aria-controls='menu-appbar'
+								aria-haspopup='true'
+								onClick={toggleOpen}
+								color='inherit'>
+								<Mic />
+							</IconButton>
+						</span>
+					</span>
 				</Toolbar>
 			</AppBar>
 		</div>

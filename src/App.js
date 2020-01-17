@@ -3,8 +3,10 @@ import StoreContextProvider from './context/StoreContext';
 import Recorder from './components/Recorder';
 import BottomBar from './components/BottomBar';
 import VerseGrid from './components/VerseGrid';
-import Player from './components/AudioPlayer';
+import TexttoSpeech from './components/TexttoSpeech';
+// import Player from './components/AudioPlayer';
 // import ExportWebm from './core/ExportWebm';
+
 
 const App = () => {
     return (
@@ -13,6 +15,7 @@ const App = () => {
                 <Recorder />
                 <BottomBar />
                 <VerseGrid />
+                <TexttoSpeech />
                 {/* <Player /> */}
             </StoreContextProvider>
         </div>
